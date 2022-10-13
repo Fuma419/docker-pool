@@ -1,2 +1,3 @@
 *prereqs*
-nodes/*
+nodes/
+dockerfile_stage*

@@ -10,9 +10,9 @@ printf "NODE = $NODE_NAME"
 printf "NETWORK = $NETWORK"
 
 if [ $NETWORK != "mainnet" || $NETWORK != "preprod"]
-printf "supported networks: preprod | mainnet\n"
+    printf "supported networks: preprod | mainnet\n"
+    exit 1
 fi
-
 
 prereqs.sh -f -t $NODE_NAME -n $NETWORK 
 

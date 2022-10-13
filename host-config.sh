@@ -91,6 +91,8 @@ docker compose version
 printf "***************************************\n"
 printf "** Building the Node                 **\n"
 printf "***************************************\n"
+
+rm dockerfile_stage*
 wget https://raw.githubusercontent.com/cardano-community/guild-operators/master/files/docker/node/dockerfile_stage1
 wget https://raw.githubusercontent.com/cardano-community/guild-operators/master/files/docker/node/dockerfile_stage2
 wget https://raw.githubusercontent.com/cardano-community/guild-operators/master/files/docker/node/dockerfile_stage2
