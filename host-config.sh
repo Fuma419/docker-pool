@@ -1,6 +1,5 @@
 #!/bin/bash
 
-printf "Updating the enviroment\n"
 ###################################
 # sudo password for sudo commands #
 ###################################
@@ -16,7 +15,7 @@ fi
 ####################################
 # Operating System (Linux) upgrade #
 ####################################
-read -p "Update Operating System (Linux)? (yes or [no]): " INPUT
+read -p "Update Operating System (Linux)? (yes or no): " INPUT
 
 case $INPUT in
   y|yes)
@@ -31,11 +30,26 @@ case $INPUT in
         ;;
 esac
 
-printf "Securing the enviroment\n"
+
+
+printf "Setting up the enviroment\n"
+
+sudo apt-get remove -y \
+    docker \
+    docker-engine \
+    docker.io \
+    containerd \
+    runc
+
+sudo apt-get install -y \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release \
+    chrony
 
 printf "Synconizing with with NTP servers\n"
 
-sudo apt-get install chrony -y
 #Move the file to /etc/chrony/chrony.conf 
 sudo cp chrony.conf /etc/chrony/chrony.conf
 #Restart chrony in order for config change to take effect.
@@ -54,14 +68,6 @@ chmod +x prereqs.sh
 #install docker
 printf "Installing Docker\n"
 
-sudo apt-get remove docker docker-engine docker.io containerd runc
-
-sudo apt-get install \
-    ca-certificates \
-    curl \
-    gnupg \
-    lsb-release
-
 sudo mkdir -p /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
@@ -71,7 +77,11 @@ echo \
 
 printf "Installing Docker\n"
 sudo apt-get update
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+sudo apt-get install -y\
+    docker-ce \
+    docker-ce-cli \
+    containerd.io \
+    docker-compose-plugin
 
 docker version
 docker compose version
