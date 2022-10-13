@@ -95,9 +95,9 @@ printf "***************************************\n"
 rm dockerfile_stage*
 wget https://raw.githubusercontent.com/cardano-community/guild-operators/master/files/docker/node/dockerfile_stage1
 wget https://raw.githubusercontent.com/cardano-community/guild-operators/master/files/docker/node/dockerfile_stage2
-wget https://raw.githubusercontent.com/cardano-community/guild-operators/master/files/docker/node/dockerfile_stage2
+wget https://raw.githubusercontent.com/cardano-community/guild-operators/master/files/docker/node/dockerfile_stage3
 
 
-docker build -t cardanocommunity/cardano-node:stage1 - < dockerfile_stage1
-docker build -t cardanocommunity/cardano-node:stage2 - < dockerfile_stage2
-docker build -t cardanocommunity/cardano-node:stage3 - < dockerfile_stage3
+sudo docker build -t cardanocommunity/cardano-node:stage1 - < dockerfile_stage1
+sudo docker build -t cardanocommunity/cardano-node:stage2 - < dockerfile_stage2
+sudo docker build -t cardanocommunity/cardano-node:stage3 - < dockerfile_stage3
