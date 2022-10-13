@@ -7,14 +7,14 @@ NODE_NAME=$1
 NETWORK=$2
 
 printf "NODE = $NODE_NAME\n"
-printf "NETWORK = $NETWORK\n"
+printf "NETWORK = $NETWORK\n\n"
 
 if [ $NETWORK != "mainnet" ] && [ $NETWORK != "preprod" ]; then
     printf "supported networks: preprod | mainnet\n"
     exit 1
 fi
 
-wget -nc https://raw.githubusercontent.com/cardano-community/guild-operators/alpha/scripts/cnode-helper-scripts/prereqs.sh
+wget -r https://raw.githubusercontent.com/cardano-community/guild-operators/alpha/scripts/cnode-helper-scripts/prereqs.sh
 
 chmod +x prereqs.sh
 
@@ -44,7 +44,7 @@ fi
 
 if [ $NETWORK == "mainnet" ]; then
 
-cat > ${NODE_NAME} << EOF
+cat > nodes/${NODE_NAME} << EOF
 docker run -dit \
 --name ${NODE_NAME} \
 --security-opt=no-new-privileges \
