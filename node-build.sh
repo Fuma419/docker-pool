@@ -5,6 +5,7 @@
 ###################################
 NODE_NAME=$1
 NETWORK=$2
+NODE_TYPE=$3
 
 printf "NODE = $NODE_NAME\n"
 printf "NETWORK = $NETWORK\n\n"
@@ -33,7 +34,7 @@ docker run -dit \
 --security-opt=no-new-privileges \
 -e NETWORK=preprod \
 -e TOPOLOGY="/opt/cardano/cnode/files/$NETWORK-topology.json" \
--p 3000:6000 \
+-p 3000:3000 \
 -p 12799:12798 \
 -v /opt/cardano/$NODE_NAME/db:/opt/cardano/cnode/db \
 -v /opt/cardano/$NODE_NAME/files:/opt/cardano/cnode/files \
@@ -48,12 +49,48 @@ cat > nodes/${NODE_NAME} << EOF
 docker run -dit \
 --name ${NODE_NAME} \
 --security-opt=no-new-privileges \
--e NETWORK=preprod \
+-e NETWORK=mainnet \
 -e TOPOLOGY="/opt/cardano/cnode/files/${NETWORK}-topology.json" \
 -p 6000:6000 \
 -p 12798:12798 \
 -v /opt/cardano/${NODE_NAME}/db:/opt/cardano/cnode/db \
 -v /opt/cardano/${NODE_NAME}/files:/opt/cardano/cnode/files \
+cardanocommunity/cardano-node
+EOF
+
+fi
+
+if [ $NETWORK == "preprod" ] && [ $NODE_TYPE == "core" ]; then
+
+cat > nodes/${NODE_NAME} << EOF
+docker run -dit \
+--name ${NODE_NAME} \
+--security-opt=no-new-privileges \
+-e NETWORK=preprod \
+-e TOPOLOGY="/opt/cardano/cnode/files/${NETWORK}-topology.json" \
+-p 3001:3000 \
+-p 12797:12798 \
+-v /opt/cardano/${NODE_NAME}/db:/opt/cardano/cnode/db \
+-v /opt/cardano/${NODE_NAME}/files:/opt/cardano/cnode/files \
+-v /opt/cardano/${NODE_NAME}/prive:/opt/cardano/cnode/priv \
+cardanocommunity/cardano-node
+EOF
+
+fi
+
+if [ $NETWORK == "mainnet" ] && [ $NODE_TYPE == "core" ]; then
+
+cat > nodes/${NODE_NAME} << EOF
+docker run -dit \
+--name ${NODE_NAME} \
+--security-opt=no-new-privileges \
+-e NETWORK=mainnet \
+-e TOPOLOGY="/opt/cardano/cnode/files/${NETWORK}-topology.json" \
+-p 6001:6000 \
+-p 12796:12798 \
+-v /opt/cardano/${NODE_NAME}/db:/opt/cardano/cnode/db \
+-v /opt/cardano/${NODE_NAME}/files:/opt/cardano/cnode/files \
+-v /opt/cardano/${NODE_NAME}/prive:/opt/cardano/cnode/priv \
 cardanocommunity/cardano-node
 EOF
 
