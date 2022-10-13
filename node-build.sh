@@ -14,7 +14,7 @@ if [ $NETWORK != "mainnet" ] || [ $NETWORK != "preprod" ]; then
     exit 1
 fi
 
-prereqs.sh -f -t $NODE_NAME -n $NETWORK 
+./prereqs.sh -f -t $NODE_NAME -n $NETWORK 
 
 cp --no-clobber /opt/cardano/$NODE_NAME/files/topology.json /opt/cardano/$NODE_NAME/files/$NETWORK-topology.json
 cp --no-clobber /opt/cardano/$NODE_NAME/files/config.json /opt/cardano/$NODE_NAME/files/$NETWORK-config.json
