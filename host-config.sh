@@ -46,7 +46,9 @@ sudo apt-get install -y \
     curl \
     gnupg \
     lsb-release \
-    chrony
+    chrony \
+    libpam-google-authenticator \
+    fail2ban
 
 printf "Synconizing with with NTP servers\n"
 
@@ -77,11 +79,7 @@ echo \
 
 printf "Installing Docker\n"
 sudo apt-get update
-sudo apt-get install -y\
-    docker-ce \
-    docker-ce-cli \
-    containerd.io \
-    docker-compose-plugin
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
 docker version
 docker compose version
