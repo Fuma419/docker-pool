@@ -41,8 +41,37 @@ sudo cp chrony.conf /etc/chrony/chrony.conf
 #Restart chrony in order for config change to take effect.
 sudo systemctl restart chronyd.service
 
+#To see the source of synchronization data.
+# chronyc sources
+#To view the current status of chrony.
+# chronyc tracking
+
 
 wget wget https://raw.githubusercontent.com/cardano-community/guild-operators/alpha/scripts/cnode-helper-scripts/prereqs.sh
 
 chmod +x prereqs.sh
 
+#install docker
+printf "Installing Docker\n"
+
+sudo apt-get remove docker docker-engine docker.io containerd runc
+
+sudo apt-get install \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+printf "Installing Docker\n"
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+
+docker version
+docker compose version
