@@ -19,7 +19,7 @@ fi
 cp --no-clobber /opt/cardano/$NODE_NAME/files/topology.json /opt/cardano/$NODE_NAME/files/$NETWORK-topology.json
 cp --no-clobber /opt/cardano/$NODE_NAME/files/config.json /opt/cardano/$NODE_NAME/files/$NETWORK-config.json
 
-sudo mkdir -pm777 nodes
+mkdir -pm777 nodes
 
 if [ $NETWORK == "preprod" ]; then
 
@@ -54,3 +54,5 @@ cardanocommunity/cardano-node
 EOF
 
 fi
+
+sudo chmod +x nodes/$NODE_NAME
