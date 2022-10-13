@@ -49,7 +49,8 @@ sudo apt-get install -y \
     libpam-google-authenticator \
     fail2ban \
     glances \
-    tmux
+    tmux \
+    lz4
 
 #printf "Synconizing with with NTP servers\n"
 printf "***************************************\n"
@@ -64,11 +65,6 @@ sudo systemctl restart chronyd.service
 # chronyc sources
 #To view the current status of chrony.
 # chronyc tracking
-
-
-wget wget https://raw.githubusercontent.com/cardano-community/guild-operators/alpha/scripts/cnode-helper-scripts/prereqs.sh
-
-chmod +x prereqs.sh
 
 #install docker
 printf "***************************************\n"
