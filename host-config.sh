@@ -48,7 +48,8 @@ sudo apt-get install -y \
     lsb-release \
     chrony \
     libpam-google-authenticator \
-    fail2ban
+    fail2ban \
+    glances
 
 printf "Synconizing with with NTP servers\n"
 
