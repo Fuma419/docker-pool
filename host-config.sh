@@ -1,7 +1,6 @@
 #!/bin/bash
 
-echo "Securing your enviroment"
-
+printf "Updating the enviroment\n"
 ###################################
 # sudo password for sudo commands #
 ###################################
@@ -23,8 +22,8 @@ case $INPUT in
   y|yes)
         echo "Updating Operating System (Linux)... please wait"
         sleep 3
-        sudo apt-get update        # command is used to download package information from all configured sources.
-        sudo apt-get upgrade       # You run sudo apt-get upgrade to install available upgrades of all packages currently installed on the system from the sources configured via sources. list file. New packages will be installed if required to satisfy dependencies, but existing packages will never be removed
+        sudo apt-get update -y        # command is used to download package information from all configured sources.
+        sudo apt-get upgrade -y       # You run sudo apt-get upgrade to install available upgrades of all packages currently installed on the system from the sources configured via sources. list file. New packages will be installed if required to satisfy dependencies, but existing packages will never be removed
         ;;
 *)
         echo "Skipped! The software upgrade will continue without updating the Operating System... please wait"
@@ -32,5 +31,18 @@ case $INPUT in
         ;;
 esac
 
+printf "Securing the enviroment\n"
+
+printf "Synconizing with with NTP servers\n"
+
+sudo apt-get install chrony -y
+#Move the file to /etc/chrony/chrony.conf 
+sudo cp chrony.conf /etc/chrony/chrony.conf
+#Restart chrony in order for config change to take effect.
+sudo systemctl restart chronyd.service
+
+
 wget wget https://raw.githubusercontent.com/cardano-community/guild-operators/alpha/scripts/cnode-helper-scripts/prereqs.sh
+
 chmod +x prereqs.sh
+
