@@ -49,7 +49,8 @@ sudo apt-get install -y \
     chrony \
     libpam-google-authenticator \
     fail2ban \
-    glances
+    glances \
+    tmux
 
 printf "Synconizing with with NTP servers\n"
 
