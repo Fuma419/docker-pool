@@ -30,10 +30,9 @@ case $INPUT in
         ;;
 esac
 
-
-
-printf "Setting up the enviroment\n"
-
+printf "***************************************\n"
+printf "** Setting up the enviroment         **\n"
+printf "***************************************\n"
 sudo apt-get remove -y \
     docker \
     docker-engine \
@@ -52,8 +51,10 @@ sudo apt-get install -y \
     glances \
     tmux
 
-printf "Synconizing with with NTP servers\n"
-
+#printf "Synconizing with with NTP servers\n"
+printf "***************************************\n"
+printf "** Synconizing with with NTP servers **\n"
+printf "***************************************\n"
 #Move the file to /etc/chrony/chrony.conf 
 sudo cp chrony.conf /etc/chrony/chrony.conf
 #Restart chrony in order for config change to take effect.
@@ -70,8 +71,9 @@ wget wget https://raw.githubusercontent.com/cardano-community/guild-operators/al
 chmod +x prereqs.sh
 
 #install docker
-printf "Installing Docker\n"
-
+printf "***************************************\n"
+printf "** Installing Docker                 **\n"
+printf "***************************************\n"
 sudo mkdir -p /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
@@ -79,9 +81,21 @@ echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-printf "Installing Docker\n"
+
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
 docker version
 docker compose version
+
+printf "***************************************\n"
+printf "** Building the Node                 **\n"
+printf "***************************************\n"
+wget https://raw.githubusercontent.com/cardano-community/guild-operators/master/files/docker/node/dockerfile_stage1
+wget https://raw.githubusercontent.com/cardano-community/guild-operators/master/files/docker/node/dockerfile_stage2
+wget https://raw.githubusercontent.com/cardano-community/guild-operators/master/files/docker/node/dockerfile_stage2
+
+
+docker build -t cardanocommunity/cardano-node:stage1 - < dockerfile_stage1
+docker build -t cardanocommunity/cardano-node:stage2 - < dockerfile_stage2
+docker build -t cardanocommunity/cardano-node:stage3 - < dockerfile_stage3
