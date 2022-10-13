@@ -9,7 +9,7 @@ NETWORK=$2
 printf "NODE = $NODE_NAME"
 printf "NETWORK = $NETWORK"
 
-if [ $NETWORK != "mainnet" || $NETWORK != "preprod"]
+if [ $NETWORK != "mainnet" || $NETWORK != "preprod"]; then
     printf "supported networks: preprod | mainnet\n"
     exit 1
 fi
