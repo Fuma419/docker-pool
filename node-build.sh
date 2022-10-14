@@ -13,9 +13,9 @@ green='\033[0;32m'
 # Clear the color after that
 clear='\033[0m'
 
-printf "Name: ${green} ${NODE_NAME} ${clear} \n\n"
-printf "Network: ${green} ${NETWORK} ${clear}\n\n"
-printf "Type: ${green} ${NODE_TYPE} ${clear}\n\n"
+printf "Name: ${green} ${NODE_NAME} ${clear} \n"
+printf "Network: ${green} ${NETWORK} ${clear}\n"
+printf "Type: ${green} ${NODE_TYPE} ${clear}\n"
 printf "Pool Name: ${green} ${POOL_NAME} ${clear}\n\n"
 
 if [ $NETWORK != "mainnet" ] && [ $NETWORK != "preprod" ]; then
@@ -35,6 +35,8 @@ cp --no-clobber /opt/cardano/$NODE_NAME/files/config.json /opt/cardano/$NODE_NAM
 mkdir -pm777 nodes
 
 if [ "$NETWORK" = "preprod" ] && [ "$NODE_TYPE" = "core" ]; then
+
+printf "${green}[Info] Creating a preprod core node${clear}\n"
 
 cat > nodes/$NODE_NAME << EOF
 docker run -dit \
@@ -58,6 +60,8 @@ fi
 
 if [ "$NETWORK" == "mainnet" ] && [ "$NODE_TYPE" == "core" ]; then
 
+printf "${green}[Info] Creating a mainnet core node${clear}\n"
+
 cat > nodes/$NODE_NAME << EOF
 docker run -dit \
 --name $NODE_NAME \
@@ -79,6 +83,8 @@ fi
 
 if [ $NETWORK = "preprod" ]; then
 
+printf "${green}[Info] Creating preprod relay node${clear}\n"
+
 cat > nodes/$NODE_NAME << EOF
 docker run -dit \
 --name $NODE_NAME \
@@ -96,6 +102,8 @@ EOF
 fi
 
 if [ $NETWORK = "mainnet" ]; then
+
+printf "${green}[Info] Creating mainnet relay node${clear}\n"
 
 cat > nodes/$NODE_NAME << EOF
 docker run -dit \
