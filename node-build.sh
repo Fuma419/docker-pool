@@ -6,6 +6,7 @@
 NODE_NAME=$1
 NETWORK=$2
 NODE_TYPE=$3
+POOL_NAME=$4
 
 printf "NODE = $NODE_NAME\n"
 printf "NETWORK = $NETWORK\n\n"
@@ -60,7 +61,7 @@ EOF
 
 fi
 
-if [[ $NETWORK == "preprod" ] && [ $NODE_TYPE == "core" ]]; then
+if [ $NETWORK == "preprod" && $NODE_TYPE == "core" ]; then
 
 cat > nodes/${NODE_NAME} << EOF
 docker run -dit \
@@ -68,6 +69,7 @@ docker run -dit \
 --security-opt=no-new-privileges \
 -e NETWORK=preprod \
 -e TOPOLOGY="/opt/cardano/cnode/files/${NETWORK}-topology.json" \
+-e POOL_NAME="$POOL_NAME" \
 -p 3001:3000 \
 -p 12797:12798 \
 -v /opt/cardano/${NODE_NAME}/db:/opt/cardano/cnode/db \
@@ -78,7 +80,7 @@ EOF
 
 fi
 
-if [[ $NETWORK == "mainnet" ] && [ $NODE_TYPE == "core" ]]; then
+if [ $NETWORK == "mainnet" && $NODE_TYPE == "core" ]; then
 
 cat > nodes/${NODE_NAME} << EOF
 docker run -dit \
@@ -86,6 +88,7 @@ docker run -dit \
 --security-opt=no-new-privileges \
 -e NETWORK=mainnet \
 -e TOPOLOGY="/opt/cardano/cnode/files/${NETWORK}-topology.json" \
+-e POOL_NAME="$POOL_NAME" \
 -p 6001:6000 \
 -p 12796:12798 \
 -v /opt/cardano/${NODE_NAME}/db:/opt/cardano/cnode/db \
