@@ -30,7 +30,6 @@ chmod +x prereqs.sh
 ./prereqs.sh -f -s -t $NODE_NAME -n $NETWORK 
 
 cp --no-clobber /opt/cardano/$NODE_NAME/files/topology.json /opt/cardano/$NODE_NAME/files/$NETWORK-topology.json
-cp --no-clobber /opt/cardano/$NODE_NAME/files/config.json /opt/cardano/$NODE_NAME/files/$NETWORK-config.json
 
 mkdir -pm777 nodes
 
@@ -68,8 +67,7 @@ docker run -dit \
 --security-opt=no-new-privileges \
 -e NETWORK=mainnet \
 -e TOPOLOGY="/opt/cardano/cnode/files/$NETWORK-topology.json" \
--e CONFIG="/opt/cardano/cnode/files/$NETWORK-config.json" \
--e CUSTOM_PEERS="adaboy-gv9e3q.gleeze.com,3000|adaboy-n28e0q.kozow.com,3000" \
+-e CUSTOM_PEERS="adaboy-gv9e3q.gleeze.com,6001|adaboy-n28e0q.kozow.com,6000" \
 -e POOL_NAME="$POOL_NAME" \
 -p 6001:6000 \
 -p 12796:12798 \
@@ -111,7 +109,6 @@ docker run -dit \
 --security-opt=no-new-privileges \
 -e NETWORK=mainnet \
 -e TOPOLOGY="/opt/cardano/cnode/files/$NETWORK-topology.json" \
--e CONFIG="/opt/cardano/cnode/files/$NETWORK-config.json" \
 -e CPU_CORES=4 \
 -p 6000:6000 \
 -p 12798:12798 \
