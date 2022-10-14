@@ -8,10 +8,15 @@ NETWORK=$2
 NODE_TYPE=$3
 POOL_NAME=$4
 
-printf "Name: $NODE_NAME\n"
-printf "Network: $NETWORK\n\n"
-printf "Type: $NODE_TYPE\n\n"
-printf "Pool Name: $POOL_NAME\n\n"
+# Set the color variable
+green='\033[0;32m'
+# Clear the color after that
+clear='\033[0m'
+
+printf "Name: ${green} ${NODE_NAME} ${clear} \n\n"
+printf "Network: ${green} ${NETWORK} ${clear}\n\n"
+printf "Type: ${green} ${NODE_TYPE} ${clear}\n\n"
+printf "Pool Name: ${green} ${POOL_NAME} ${clear}\n\n"
 
 if [ $NETWORK != "mainnet" ] && [ $NETWORK != "preprod" ]; then
     printf "supported networks: preprod | mainnet\n"
