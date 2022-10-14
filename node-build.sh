@@ -35,7 +35,6 @@ docker run -dit \
 --security-opt=no-new-privileges \
 -e NETWORK=preprod \
 -e TOPOLOGY="/opt/cardano/cnode/files/$NETWORK-topology.json" \
--e CONFIG="/opt/cardano/cnode/files/$NETWORK-config.json" \
 -e POOL_NAME="$POOL_NAME" \
 -p 3001:3000 \
 -p 12797:12798 \
@@ -78,7 +77,6 @@ docker run -dit \
 --security-opt=no-new-privileges \
 -e NETWORK=preprod \
 -e TOPOLOGY="/opt/cardano/cnode/files/$NETWORK-topology.json" \
--e CONFIG="/opt/cardano/cnode/files/$NETWORK-config.json" \
 -e CPU_CORES=4 \
 -p 3000:3000 \
 -p 12799:12798 \
