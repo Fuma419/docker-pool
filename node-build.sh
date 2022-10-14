@@ -8,8 +8,10 @@ NETWORK=$2
 NODE_TYPE=$3
 POOL_NAME=$4
 
-printf "NODE = $NODE_NAME\n"
-printf "NETWORK = $NETWORK\n\n"
+printf "Name: $NODE_NAME\n"
+printf "Network: $NETWORK\n\n"
+printf "Type: $NODE_TYPE\n\n"
+printf "Pool Name: $POOL_NAME\n\n"
 
 if [ $NETWORK != "mainnet" ] && [ $NETWORK != "preprod" ]; then
     printf "supported networks: preprod | mainnet\n"
@@ -45,9 +47,11 @@ docker run -dit \
 cardanocommunity/cardano-node
 EOF
 
+mkdir -pm777 /opt/cardano/$NODE_NAME/priv/$POOL_NAME
+
 fi
 
-if [ "$NETWORK" = "mainnet" ] && [ "$NODE_TYPE" = "core" ]; then
+if [ "$NETWORK" == "mainnet" ] && [ "$NODE_TYPE" == "core" ]; then
 
 cat > nodes/$NODE_NAME << EOF
 docker run -dit \
@@ -58,7 +62,6 @@ docker run -dit \
 -e CONFIG="/opt/cardano/cnode/files/$NETWORK-config.json" \
 -e CUSTOM_PEERS="adaboy-gv9e3q.gleeze.com,3000|adaboy-n28e0q.kozow.com,3000" \
 -e POOL_NAME="$POOL_NAME" \
--e CPU_CORES=4 \
 -p 6001:6000 \
 -p 12796:12798 \
 -v /opt/cardano/$NODE_NAME/db:/opt/cardano/cnode/db \
@@ -102,7 +105,7 @@ docker run -dit \
 -v /opt/cardano/$NODE_NAME/db:/opt/cardano/cnode/db \
 -v /opt/cardano/$NODE_NAME/files:/opt/cardano/cnode/files \
 -t \
-cardanocommunity/cardano-node:latest
+cardanocommunity/cardano-node
 EOF
 
 fi
