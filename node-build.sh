@@ -20,7 +20,7 @@ wget -r https://raw.githubusercontent.com/cardano-community/guild-operators/alph
 
 chmod +x prereqs.sh
 
-./prereqs.sh -f -t $NODE_NAME -n $NETWORK 
+./prereqs.sh -f -s -t $NODE_NAME -n $NETWORK 
 
 cp --no-clobber /opt/cardano/$NODE_NAME/files/topology.json /opt/cardano/$NODE_NAME/files/$NETWORK-topology.json
 cp --no-clobber /opt/cardano/$NODE_NAME/files/config.json /opt/cardano/$NODE_NAME/files/$NETWORK-config.json
@@ -41,7 +41,7 @@ docker run -dit \
 -e CPU_CORES=4 \
 -v /opt/cardano/$NODE_NAME/db:/opt/cardano/cnode/db \
 -v /opt/cardano/$NODE_NAME/files:/opt/cardano/cnode/files \
--v /opt/cardano/$NODE_NAME/prive:/opt/cardano/cnode/priv \
+-v /opt/cardano/$NODE_NAME/priv:/opt/cardano/cnode/priv \
 cardanocommunity/cardano-node
 EOF
 
@@ -63,7 +63,7 @@ docker run -dit \
 -p 12796:12798 \
 -v /opt/cardano/$NODE_NAME/db:/opt/cardano/cnode/db \
 -v /opt/cardano/$NODE_NAME/files:/opt/cardano/cnode/files \
--v /opt/cardano/$NODE_NAME/prive:/opt/cardano/cnode/priv \
+-v /opt/cardano/$NODE_NAME/priv:/opt/cardano/cnode/priv \
 cardanocommunity/cardano-node
 EOF
 
@@ -97,9 +97,8 @@ docker run -dit \
 -e TOPOLOGY="/opt/cardano/cnode/files/$NETWORK-topology.json" \
 -e CONFIG="/opt/cardano/cnode/files/$NETWORK-config.json" \
 -e CPU_CORES=4 \
--e CUSTOM_PEERS="adaboy-gv9e3q.gleeze.com,1601|adaboy-n28e0q.kozow.com,1603" \
 -p 6000:6000 \
--p 12800:12798 \
+-p 12798:12798 \
 -v /opt/cardano/$NODE_NAME/db:/opt/cardano/cnode/db \
 -v /opt/cardano/$NODE_NAME/files:/opt/cardano/cnode/files \
 -t \
