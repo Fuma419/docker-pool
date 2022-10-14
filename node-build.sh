@@ -27,7 +27,7 @@ cp --no-clobber /opt/cardano/$NODE_NAME/files/config.json /opt/cardano/$NODE_NAM
 
 mkdir -pm777 nodes
 
-if [ $NETWORK == "preprod" ]; then
+if [ $NETWORK = "preprod" ]; then
 
 cat > nodes/$NODE_NAME << EOF
 docker run -dit \
@@ -35,6 +35,7 @@ docker run -dit \
 --security-opt=no-new-privileges \
 -e NETWORK=preprod \
 -e TOPOLOGY="/opt/cardano/cnode/files/$NETWORK-topology.json" \
+-e CPU_CORES=4 \
 -p 3000:3000 \
 -p 12799:12798 \
 -v /opt/cardano/$NODE_NAME/db:/opt/cardano/cnode/db \
@@ -44,7 +45,7 @@ EOF
 
 fi
 
-if [ $NETWORK == "mainnet" ]; then
+if [ $NETWORK = "mainnet" ]; then
 
 cat > nodes/${NODE_NAME} << EOF
 docker run -dit \
@@ -54,6 +55,7 @@ docker run -dit \
 -e TOPOLOGY="/opt/cardano/cnode/files/${NETWORK}-topology.json" \
 -p 6000:6000 \
 -p 12798:12798 \
+-e CPU_CORES=4 \
 -v /opt/cardano/${NODE_NAME}/db:/opt/cardano/cnode/db \
 -v /opt/cardano/${NODE_NAME}/files:/opt/cardano/cnode/files \
 cardanocommunity/cardano-node
@@ -61,7 +63,7 @@ EOF
 
 fi
 
-if [ $NETWORK == "preprod" && $NODE_TYPE == "core" ]; then
+if [ "$NETWORK" = "preprod" ] && [ "$NODE_TYPE" = "core" ]; then
 
 cat > nodes/${NODE_NAME} << EOF
 docker run -dit \
@@ -72,6 +74,7 @@ docker run -dit \
 -e POOL_NAME="$POOL_NAME" \
 -p 3001:3000 \
 -p 12797:12798 \
+-e CPU_CORES=4 \
 -v /opt/cardano/${NODE_NAME}/db:/opt/cardano/cnode/db \
 -v /opt/cardano/${NODE_NAME}/files:/opt/cardano/cnode/files \
 -v /opt/cardano/${NODE_NAME}/prive:/opt/cardano/cnode/priv \
@@ -80,7 +83,7 @@ EOF
 
 fi
 
-if [ $NETWORK == "mainnet" && $NODE_TYPE == "core" ]; then
+if [ "$NETWORK" = "mainnet" ] && [ "$NODE_TYPE" = "core" ]; then
 
 cat > nodes/${NODE_NAME} << EOF
 docker run -dit \
