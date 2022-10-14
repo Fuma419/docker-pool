@@ -27,6 +27,49 @@ cp --no-clobber /opt/cardano/$NODE_NAME/files/config.json /opt/cardano/$NODE_NAM
 
 mkdir -pm777 nodes
 
+if [ "$NETWORK" = "preprod" ] && [ "$NODE_TYPE" = "core" ]; then
+
+cat > nodes/$NODE_NAME << EOF
+docker run -dit \
+--name $NODE_NAME \
+--security-opt=no-new-privileges \
+-e NETWORK=preprod \
+-e TOPOLOGY="/opt/cardano/cnode/files/$NETWORK-topology.json" \
+-e CONFIG="/opt/cardano/cnode/files/$NETWORK-config.json" \
+-e POOL_NAME="$POOL_NAME" \
+-p 3001:3000 \
+-p 12797:12798 \
+-e CPU_CORES=4 \
+-v /opt/cardano/$NODE_NAME/db:/opt/cardano/cnode/db \
+-v /opt/cardano/$NODE_NAME/files:/opt/cardano/cnode/files \
+-v /opt/cardano/$NODE_NAME/prive:/opt/cardano/cnode/priv \
+cardanocommunity/cardano-node
+EOF
+
+fi
+
+if [ "$NETWORK" = "mainnet" ] && [ "$NODE_TYPE" = "core" ]; then
+
+cat > nodes/$NODE_NAME << EOF
+docker run -dit \
+--name $NODE_NAME \
+--security-opt=no-new-privileges \
+-e NETWORK=mainnet \
+-e TOPOLOGY="/opt/cardano/cnode/files/$NETWORK-topology.json" \
+-e CONFIG="/opt/cardano/cnode/files/$NETWORK-config.json" \
+-e CUSTOM_PEERS="adaboy-gv9e3q.gleeze.com,3000|adaboy-n28e0q.kozow.com,3000" \
+-e POOL_NAME="$POOL_NAME" \
+-e CPU_CORES=4 \
+-p 6001:6000 \
+-p 12796:12798 \
+-v /opt/cardano/$NODE_NAME/db:/opt/cardano/cnode/db \
+-v /opt/cardano/$NODE_NAME/files:/opt/cardano/cnode/files \
+-v /opt/cardano/$NODE_NAME/prive:/opt/cardano/cnode/priv \
+cardanocommunity/cardano-node
+EOF
+
+fi
+
 if [ $NETWORK = "preprod" ]; then
 
 cat > nodes/$NODE_NAME << EOF
@@ -35,6 +78,7 @@ docker run -dit \
 --security-opt=no-new-privileges \
 -e NETWORK=preprod \
 -e TOPOLOGY="/opt/cardano/cnode/files/$NETWORK-topology.json" \
+-e CONFIG="/opt/cardano/cnode/files/$NETWORK-config.json" \
 -e CPU_CORES=4 \
 -p 3000:3000 \
 -p 12799:12798 \
@@ -47,59 +91,24 @@ fi
 
 if [ $NETWORK = "mainnet" ]; then
 
-cat > nodes/${NODE_NAME} << EOF
+cat > nodes/$NODE_NAME << EOF
 docker run -dit \
---name ${NODE_NAME} \
+--name $NODE_NAME \
 --security-opt=no-new-privileges \
 -e NETWORK=mainnet \
--e TOPOLOGY="/opt/cardano/cnode/files/${NETWORK}-topology.json" \
+-e TOPOLOGY="/opt/cardano/cnode/files/$NETWORK-topology.json" \
+-e CONFIG="/opt/cardano/cnode/files/$NETWORK-config.json" \
+-e CPU_CORES=4 \
+-e CUSTOM_PEERS="adaboy-gv9e3q.gleeze.com,1601|adaboy-n28e0q.kozow.com,1603" \
 -p 6000:6000 \
--p 12798:12798 \
--e CPU_CORES=4 \
--v /opt/cardano/${NODE_NAME}/db:/opt/cardano/cnode/db \
--v /opt/cardano/${NODE_NAME}/files:/opt/cardano/cnode/files \
-cardanocommunity/cardano-node
+-p 12800:12798 \
+-v /opt/cardano/$NODE_NAME/db:/opt/cardano/cnode/db \
+-v /opt/cardano/$NODE_NAME/files:/opt/cardano/cnode/files \
+-t \
+cardanocommunity/cardano-node:latest
 EOF
 
 fi
 
-if [ "$NETWORK" = "preprod" ] && [ "$NODE_TYPE" = "core" ]; then
-
-cat > nodes/${NODE_NAME} << EOF
-docker run -dit \
---name ${NODE_NAME} \
---security-opt=no-new-privileges \
--e NETWORK=preprod \
--e TOPOLOGY="/opt/cardano/cnode/files/${NETWORK}-topology.json" \
--e POOL_NAME="$POOL_NAME" \
--p 3001:3000 \
--p 12797:12798 \
--e CPU_CORES=4 \
--v /opt/cardano/${NODE_NAME}/db:/opt/cardano/cnode/db \
--v /opt/cardano/${NODE_NAME}/files:/opt/cardano/cnode/files \
--v /opt/cardano/${NODE_NAME}/prive:/opt/cardano/cnode/priv \
-cardanocommunity/cardano-node
-EOF
-
-fi
-
-if [ "$NETWORK" = "mainnet" ] && [ "$NODE_TYPE" = "core" ]; then
-
-cat > nodes/${NODE_NAME} << EOF
-docker run -dit \
---name ${NODE_NAME} \
---security-opt=no-new-privileges \
--e NETWORK=mainnet \
--e TOPOLOGY="/opt/cardano/cnode/files/${NETWORK}-topology.json" \
--e POOL_NAME="$POOL_NAME" \
--p 6001:6000 \
--p 12796:12798 \
--v /opt/cardano/${NODE_NAME}/db:/opt/cardano/cnode/db \
--v /opt/cardano/${NODE_NAME}/files:/opt/cardano/cnode/files \
--v /opt/cardano/${NODE_NAME}/prive:/opt/cardano/cnode/priv \
-cardanocommunity/cardano-node
-EOF
-
-fi
 
 sudo chmod +x nodes/$NODE_NAME
