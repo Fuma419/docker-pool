@@ -81,7 +81,7 @@ EOF
 
 fi
 
-if [ $NETWORK = "preprod" ]; then
+if [ $NETWORK = "preprod" ] && [ "$NODE_TYPE" != "core" ]; then
 
 printf "${green}[Info] Creating preprod relay node${clear}\n"
 
@@ -101,7 +101,7 @@ EOF
 
 fi
 
-if [ $NETWORK = "mainnet" ]; then
+if [ $NETWORK = "mainnet" ] && [ "$NODE_TYPE" != "core" ]; then
 
 printf "${green}[Info] Creating mainnet relay node${clear}\n"
 
