@@ -60,7 +60,7 @@ EOF
 
 fi
 
-if [ $NETWORK == "preprod" ] && [ $NODE_TYPE == "core" ]; then
+if [[ $NETWORK == "preprod" ] && [ $NODE_TYPE == "core" ]]; then
 
 cat > nodes/${NODE_NAME} << EOF
 docker run -dit \
@@ -78,7 +78,7 @@ EOF
 
 fi
 
-if [ $NETWORK == "mainnet" ] && [ $NODE_TYPE == "core" ]; then
+if [[ $NETWORK == "mainnet" ] && [ $NODE_TYPE == "core" ]]; then
 
 cat > nodes/${NODE_NAME} << EOF
 docker run -dit \
