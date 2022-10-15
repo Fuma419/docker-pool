@@ -34,8 +34,8 @@ cp --no-clobber /opt/cardano/cnode/files/topology.json /opt/cardano/$NODE_NAME/f
 cp --no-clobber /opt/cardano/cnode/files/config.json /opt/cardano/$NODE_NAME/files/$NETWORK-config.json
 
 mkdir -pm777 nodes
-sudo docker stop nodes/$NODE_NAME
-sudo docker rm nodes/$NODE_NAME
+sudo docker stop $NODE_NAME
+sudo docker rm $NODE_NAME
 
 if [ "$NETWORK" = "preprod" ] && [ "$NODE_TYPE" = "core" ]; then
 
@@ -129,3 +129,4 @@ fi
 
 
 sudo chmod +x nodes/$NODE_NAME
+sudo ./nodes/$NODE_NAME
