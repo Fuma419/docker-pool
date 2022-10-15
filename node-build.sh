@@ -24,14 +24,16 @@ if [ $NETWORK != "mainnet" ] && [ $NETWORK != "preprod" ]; then
 fi
 
 wget -r https://raw.githubusercontent.com/cardano-community/guild-operators/alpha/scripts/cnode-helper-scripts/prereqs.sh
-
 chmod +x prereqs.sh
 
-./prereqs.sh -f -s -t $NODE_NAME -n $NETWORK 
+./prereqs.sh -f -s -n $NETWORK 
 
-cp --no-clobber /opt/cardano/$NODE_NAME/files/topology.json /opt/cardano/$NODE_NAME/files/$NETWORK-topology.json
+cp --no-clobber /opt/cardano/cnode/files/topology.json /opt/cardano/$NODE_NAME/files/$NETWORK-topology.json
+cp --no-clobber /opt/cardano/cnode/files/config.json /opt/cardano/$NODE_NAME/files/$NETWORK-config.json
 
 mkdir -pm777 nodes
+sudo docker stop nodes/$NODE_NAME
+sudo docker rm nodes/$NODE_NAME
 
 if [ "$NETWORK" = "preprod" ] && [ "$NODE_TYPE" = "core" ]; then
 
@@ -43,6 +45,7 @@ docker run -dit \
 --security-opt=no-new-privileges \
 -e NETWORK=preprod \
 -e TOPOLOGY="/opt/cardano/cnode/files/$NETWORK-topology.json" \
+-e CONFIG="/opt/cardano/cnode/files/$NETWORK-config.json" \
 -e POOL_NAME="$POOL_NAME" \
 -p 3001:3000 \
 -p 12797:12798 \
@@ -67,7 +70,7 @@ docker run -dit \
 --security-opt=no-new-privileges \
 -e NETWORK=mainnet \
 -e TOPOLOGY="/opt/cardano/cnode/files/$NETWORK-topology.json" \
--e CUSTOM_PEERS="adaboy-gv9e3q.gleeze.com,6001|adaboy-n28e0q.kozow.com,6000" \
+-e CONFIG="/opt/cardano/cnode/files/$NETWORK-config.json" \
 -e POOL_NAME="$POOL_NAME" \
 -p 6001:6000 \
 -p 12796:12798 \
@@ -89,6 +92,7 @@ docker run -dit \
 --security-opt=no-new-privileges \
 -e NETWORK=preprod \
 -e TOPOLOGY="/opt/cardano/cnode/files/$NETWORK-topology.json" \
+-e CONFIG="/opt/cardano/cnode/files/$NETWORK-config.json" \
 -e CPU_CORES=4 \
 -p 3000:3000 \
 -p 12799:12798 \
@@ -109,6 +113,7 @@ docker run -dit \
 --security-opt=no-new-privileges \
 -e NETWORK=mainnet \
 -e TOPOLOGY="/opt/cardano/cnode/files/$NETWORK-topology.json" \
+-e CONFIG="/opt/cardano/cnode/files/$NETWORK-config.json" \
 -e CPU_CORES=4 \
 -p 6000:6000 \
 -p 12798:12798 \
