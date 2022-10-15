@@ -1,3 +1,5 @@
 *prereqs*
 nodes/
 dockerfile_stage*
+docker
+.DS_Store
