@@ -50,7 +50,7 @@ docker run -dit \
 -e CONFIG="/opt/cardano/cnode/files/$NETWORK-config.json" \
 -e POOL_NAME="$POOL_NAME" \
 -p 3001:3000 \
--p 12797:12798 \
+-p 12801:12798 \
 -e CPU_CORES=4 \
 -v /opt/cardano/$NODE_NAME/db:/opt/cardano/cnode/db \
 -v /opt/cardano/$NODE_NAME/files:/opt/cardano/cnode/files \
@@ -75,7 +75,7 @@ docker run -dit \
 -e CONFIG="/opt/cardano/cnode/files/$NETWORK-config.json" \
 -e POOL_NAME="$POOL_NAME" \
 -p 6001:6000 \
--p 12796:12798 \
+-p 12800:12798 \
 -v /opt/cardano/$NODE_NAME/db:/opt/cardano/cnode/db \
 -v /opt/cardano/$NODE_NAME/files:/opt/cardano/cnode/files \
 -v /opt/cardano/$NODE_NAME/priv:/opt/cardano/cnode/priv \
