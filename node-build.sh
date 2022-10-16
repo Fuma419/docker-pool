@@ -45,6 +45,8 @@ cat > nodes/$NODE_NAME << EOF
 docker run -dit \
 --name $NODE_NAME \
 --security-opt=no-new-privileges \
+--memory=2g
+--cpus=4
 -e NETWORK=preprod \
 -e TOPOLOGY="/opt/cardano/cnode/files/$NETWORK-topology.json" \
 -e CONFIG="/opt/cardano/cnode/files/$NETWORK-config.json" \
@@ -70,6 +72,8 @@ cat > nodes/$NODE_NAME << EOF
 docker run -dit \
 --name $NODE_NAME \
 --security-opt=no-new-privileges \
+--memory=20g
+--cpus=4
 -e NETWORK=mainnet \
 -e TOPOLOGY="/opt/cardano/cnode/files/$NETWORK-topology.json" \
 -e CONFIG="/opt/cardano/cnode/files/$NETWORK-config.json" \
@@ -92,6 +96,8 @@ cat > nodes/$NODE_NAME << EOF
 docker run -dit \
 --name $NODE_NAME \
 --security-opt=no-new-privileges \
+--memory=2
+--cpus=4
 -e NETWORK=preprod \
 -e TOPOLOGY="/opt/cardano/cnode/files/$NETWORK-topology.json" \
 -e CONFIG="/opt/cardano/cnode/files/$NETWORK-config.json" \
@@ -113,6 +119,8 @@ cat > nodes/$NODE_NAME << EOF
 docker run -dit \
 --name $NODE_NAME \
 --security-opt=no-new-privileges \
+--memory=20
+--cpus=4
 -e NETWORK=mainnet \
 -e TOPOLOGY="/opt/cardano/cnode/files/$NETWORK-topology.json" \
 -e CONFIG="/opt/cardano/cnode/files/$NETWORK-config.json" \
@@ -129,4 +137,4 @@ fi
 
 
 sudo chmod +x nodes/$NODE_NAME
-sudo ./nodes/$NODE_NAME
+#sudo ./nodes/$NODE_NAME
