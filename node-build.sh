@@ -37,7 +37,7 @@ mkdir -pm777 nodes
 sudo docker stop $NODE_NAME
 sudo docker rm $NODE_NAME
 
-if [ "$NETWORK" = "preprod" ] && [ "$NODE_TYPE" = "core" ]; then
+if [ "$NETWORK" == "preprod" ] && [ "$NODE_TYPE" == "core" ]; then
 
 printf "${green}[Info] Creating a preprod core node${clear}\n"
 
@@ -51,12 +51,13 @@ docker run -dit \
 -e TOPOLOGY="/opt/cardano/cnode/files/$NETWORK-topology.json" \
 -e CONFIG="/opt/cardano/cnode/files/$NETWORK-config.json" \
 -e POOL_NAME="$POOL_NAME" \
--p 3001:3000 \
+-p 3001:6000 \
 -p 12801:12798 \
 -e CPU_CORES=4 \
 -v /opt/cardano/$NODE_NAME/db:/opt/cardano/cnode/db \
 -v /opt/cardano/$NODE_NAME/files:/opt/cardano/cnode/files \
 -v /opt/cardano/$NODE_NAME/priv:/opt/cardano/cnode/priv \
+-v /opt/cardano/$NODE_NAME/scripts/cnode.sh:/opt/cardano/cnode/scripts/cnode.sh \
 cardanocommunity/cardano-node
 EOF
 
@@ -83,12 +84,13 @@ docker run -dit \
 -v /opt/cardano/$NODE_NAME/db:/opt/cardano/cnode/db \
 -v /opt/cardano/$NODE_NAME/files:/opt/cardano/cnode/files \
 -v /opt/cardano/$NODE_NAME/priv:/opt/cardano/cnode/priv \
+-v /opt/cardano/$NODE_NAME/scripts/cnode.sh:/opt/cardano/cnode/scripts/cnode.sh \
 cardanocommunity/cardano-node
 EOF
 
 fi
 
-if [ $NETWORK = "preprod" ] && [ "$NODE_TYPE" != "core" ]; then
+if [ $NETWORK == "preprod" ] && [ "$NODE_TYPE" != "core" ]; then
 
 printf "${green}[Info] Creating preprod relay node${clear}\n"
 
@@ -102,16 +104,17 @@ docker run -dit \
 -e TOPOLOGY="/opt/cardano/cnode/files/$NETWORK-topology.json" \
 -e CONFIG="/opt/cardano/cnode/files/$NETWORK-config.json" \
 -e CPU_CORES=4 \
--p 3000:3000 \
+-p 3000:6000 \
 -p 12799:12798 \
 -v /opt/cardano/$NODE_NAME/db:/opt/cardano/cnode/db \
 -v /opt/cardano/$NODE_NAME/files:/opt/cardano/cnode/files \
+-v /opt/cardano/$NODE_NAME/scripts/cnode.sh:/opt/cardano/cnode/scripts/cnode.sh \
 cardanocommunity/cardano-node
 EOF
 
 fi
 
-if [ $NETWORK = "mainnet" ] && [ "$NODE_TYPE" != "core" ]; then
+if [ $NETWORK == "mainnet" ] && [ "$NODE_TYPE" != "core" ]; then
 
 printf "${green}[Info] Creating mainnet relay node${clear}\n"
 
@@ -129,7 +132,7 @@ docker run -dit \
 -p 12798:12798 \
 -v /opt/cardano/$NODE_NAME/db:/opt/cardano/cnode/db \
 -v /opt/cardano/$NODE_NAME/files:/opt/cardano/cnode/files \
--t \
+-v /opt/cardano/$NODE_NAME/scripts/cnode.sh:/opt/cardano/cnode/scripts/cnode.sh \
 cardanocommunity/cardano-node
 EOF
 
