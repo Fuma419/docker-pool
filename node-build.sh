@@ -24,13 +24,13 @@ if [ $NETWORK != "mainnet" ] && [ $NETWORK != "preprod" ]; then
     exit 1
 fi
 
-curl -sS -o prereqs.sh https://raw.githubusercontent.com/cardano-community/guild-operators/master/scripts/cnode-helper-scripts/prereqs.sh
+wget -r https://raw.githubusercontent.com/cardano-community/guild-operators/alpha/scripts/cnode-helper-scripts/prereqs.sh
 chmod +x prereqs.sh
 
 ./prereqs.sh -f -s -n $NETWORK 
 ./prereqs.sh -f -s -t $NODE_NAME -n $NETWORK 
 
-cp --no-clobber /opt/cardano/cnode/files/topology.json /opt/cardano/relay-1a/files/mainnet-topology.json
+cp --no-clobber /opt/cardano/cnode/files/topology.json /opt/cardano/$NODE_NAME/files/$NETWORK-topology.json
 cp --no-clobber /opt/cardano/cnode/files/config.json /opt/cardano/$NODE_NAME/files/$NETWORK-config.json
 
 mkdir -pm777 nodes
