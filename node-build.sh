@@ -24,7 +24,8 @@ if [ $NETWORK != "mainnet" ] && [ $NETWORK != "preprod" ]; then
     exit 1
 fi
 
-wget -r https://raw.githubusercontent.com/cardano-community/guild-operators/alpha/scripts/cnode-helper-scripts/prereqs.sh
+
+curl -sS -o prereqs.sh https://raw.githubusercontent.com/cardano-community/guild-operators/master/scripts/cnode-helper-scripts/prereqs.sh
 chmod +x prereqs.sh
 
 ./prereqs.sh -f -s -n $NETWORK 
