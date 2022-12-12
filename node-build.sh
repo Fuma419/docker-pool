@@ -12,12 +12,12 @@ POOL_NAME=$4
 green='\033[0;32m'
 # Clear the color after that
 clear='\033[0m'
-printf "${green} ***************************************** ${clear} \n"
-printf "Name:      ${green} ${NODE_NAME} ${clear} \n"
-printf "Network:   ${green} ${NETWORK} ${clear}\n"
-printf "Type:      ${green} ${NODE_TYPE} ${clear}\n"
-printf "Pool Name: ${green} ${POOL_NAME} ${clear}\n\n"
-printf "${green} ***************************************** ${clear} \n"
+printf "${green} ************************************************* ${clear} \n"
+printf "*  Name:      ${green} ${NODE_NAME} ${clear} \n"
+printf "*  Network:   ${green} ${NETWORK} ${clear}\n"
+printf "*  Type:      ${green} ${NODE_TYPE} ${clear}\n"
+printf "*  Pool Name: ${green} ${POOL_NAME} ${clear}\n\n"
+printf "${green} ************************************************* ${clear} \n"
 
 if [ $NETWORK != "mainnet" ] && [ $NETWORK != "preprod" ]; then
     printf "supported networks: preprod | mainnet\n"
@@ -87,6 +87,8 @@ docker run -dit \
 -v /opt/cardano/$NODE_NAME/scripts/cnode.sh:/opt/cardano/cnode/scripts/cnode.sh \
 cardanocommunity/cardano-node
 EOF
+
+mkdir -pm777 /opt/cardano/$NODE_NAME/priv/$POOL_NAME
 
 fi
 
