@@ -96,7 +96,7 @@ sudo docker build -t cardanocommunity/cardano-node:stage1 - < dockerfile_stage1
 sudo docker build -t cardanocommunity/cardano-node:stage2 - < dockerfile_stage2
 sudo docker build -t cardanocommunity/cardano-node:stage3 - < dockerfile_stage3
 
-wget https://raw.githubusercontent.com/cardano-community/guild-operators/alpha/scripts/cnode-helper-scripts/prereqs.sh
-chmod +x prereqs.sh
+curl -sS -o prereqs.sh https://raw.githubusercontent.com/cardano-community/guild-operators/master/scripts/cnode-helper-scripts/prereqs.sh
+chmod 755 prereqs.sh
 ./prereqs.sh -f
 
