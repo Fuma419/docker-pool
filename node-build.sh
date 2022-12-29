@@ -45,8 +45,7 @@ printf "${green}[Info] Creating a preprod core node${clear}\n"
 cat > nodes/$NODE_NAME << EOF
 docker run -dit \
 --name $NODE_NAME \
---security-opt=no-new-privileges \
---memory=2g \
+--memory=4g \
 --cpus=4 \
 -e NETWORK=preprod \
 -e TOPOLOGY="/opt/cardano/cnode/files/$NETWORK-topology.json" \
@@ -74,7 +73,7 @@ cat > nodes/$NODE_NAME << EOF
 docker run -dit \
 --name $NODE_NAME \
 --security-opt=no-new-privileges \
---memory=20g \
+--memory=30g \
 --cpus=4 \
 -e NETWORK=mainnet \
 -e TOPOLOGY="/opt/cardano/cnode/files/$NETWORK-topology.json" \
@@ -101,14 +100,15 @@ cat > nodes/$NODE_NAME << EOF
 docker run -dit \
 --name $NODE_NAME \
 --security-opt=no-new-privileges \
---memory=2g \
---cpus=4 \
+--memory=5g \
+--cpus=2 \
 -e NETWORK=preprod \
 -e TOPOLOGY="/opt/cardano/cnode/files/$NETWORK-topology.json" \
 -e CONFIG="/opt/cardano/cnode/files/$NETWORK-config.json" \
 -e CPU_CORES=4 \
 -p 3000:6000 \
 -p 12799:12798 \
+-p 8090:8090 \
 -v /opt/cardano/$NODE_NAME/db:/opt/cardano/cnode/db \
 -v /opt/cardano/$NODE_NAME/files:/opt/cardano/cnode/files \
 -v /opt/cardano/$NODE_NAME/scripts/cnode.sh:/opt/cardano/cnode/scripts/cnode.sh \
@@ -125,7 +125,7 @@ cat > nodes/$NODE_NAME << EOF
 docker run -dit \
 --name $NODE_NAME \
 --security-opt=no-new-privileges \
---memory=20g \
+--memory=22g \
 --cpus=4 \
 -e NETWORK=mainnet \
 -e TOPOLOGY="/opt/cardano/cnode/files/$NETWORK-topology.json" \
@@ -133,6 +133,7 @@ docker run -dit \
 -e CPU_CORES=4 \
 -p 6000:6000 \
 -p 12798:12798 \
+-p 8090:8090 \
 -v /opt/cardano/$NODE_NAME/db:/opt/cardano/cnode/db \
 -v /opt/cardano/$NODE_NAME/files:/opt/cardano/cnode/files \
 -v /opt/cardano/$NODE_NAME/scripts/cnode.sh:/opt/cardano/cnode/scripts/cnode.sh \
