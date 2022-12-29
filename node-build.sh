@@ -28,8 +28,8 @@ fi
 curl -sS -o prereqs.sh https://raw.githubusercontent.com/cardano-community/guild-operators/master/scripts/cnode-helper-scripts/prereqs.sh
 chmod +x prereqs.sh
 
-./prereqs.sh -f -s -n $NETWORK 
-./prereqs.sh -f -s -t $NODE_NAME -n $NETWORK 
+./prereqs.sh -f -s -n $NETWORK
+./prereqs.sh -f -s -t $NODE_NAME -n $NETWORK
 
 cp /opt/cardano/cnode/files/topology.json /opt/cardano/$NODE_NAME/files/$NETWORK-topology.json
 cp /opt/cardano/cnode/files/config.json /opt/cardano/$NODE_NAME/files/$NETWORK-config.json
@@ -45,15 +45,15 @@ printf "${green}[Info] Creating a preprod core node${clear}\n"
 cat > nodes/$NODE_NAME << EOF
 docker run -dit \
 --name $NODE_NAME \
---memory=4g \
---cpus=4 \
+--memory=7g \
+--cpus=2 \
 -e NETWORK=preprod \
 -e TOPOLOGY="/opt/cardano/cnode/files/$NETWORK-topology.json" \
 -e CONFIG="/opt/cardano/cnode/files/$NETWORK-config.json" \
 -e POOL_NAME="$POOL_NAME" \
 -p 3001:6000 \
 -p 12801:12798 \
--e CPU_CORES=4 \
+-e CPU_CORES=2 \
 -v /opt/cardano/$NODE_NAME/db:/opt/cardano/cnode/db \
 -v /opt/cardano/$NODE_NAME/files:/opt/cardano/cnode/files \
 -v /opt/cardano/$NODE_NAME/priv:/opt/cardano/cnode/priv \
@@ -72,13 +72,13 @@ printf "${green}[Info] Creating a mainnet core node${clear}\n"
 cat > nodes/$NODE_NAME << EOF
 docker run -dit \
 --name $NODE_NAME \
---security-opt=no-new-privileges \
 --memory=30g \
---cpus=4 \
+--cpus=5 \
 -e NETWORK=mainnet \
 -e TOPOLOGY="/opt/cardano/cnode/files/$NETWORK-topology.json" \
 -e CONFIG="/opt/cardano/cnode/files/$NETWORK-config.json" \
 -e POOL_NAME="$POOL_NAME" \
+-e CPU_CORES=4 \
 -p 6001:6000 \
 -p 12800:12798 \
 -v /opt/cardano/$NODE_NAME/db:/opt/cardano/cnode/db \
@@ -105,10 +105,10 @@ docker run -dit \
 -e NETWORK=preprod \
 -e TOPOLOGY="/opt/cardano/cnode/files/$NETWORK-topology.json" \
 -e CONFIG="/opt/cardano/cnode/files/$NETWORK-config.json" \
--e CPU_CORES=4 \
+-e CPU_CORES=2 \
 -p 3000:6000 \
 -p 12799:12798 \
--p 8090:8090 \
+-p 8091:8090 \
 -v /opt/cardano/$NODE_NAME/db:/opt/cardano/cnode/db \
 -v /opt/cardano/$NODE_NAME/files:/opt/cardano/cnode/files \
 -v /opt/cardano/$NODE_NAME/scripts/cnode.sh:/opt/cardano/cnode/scripts/cnode.sh \
@@ -125,7 +125,7 @@ cat > nodes/$NODE_NAME << EOF
 docker run -dit \
 --name $NODE_NAME \
 --security-opt=no-new-privileges \
---memory=22g \
+--memory=25g \
 --cpus=4 \
 -e NETWORK=mainnet \
 -e TOPOLOGY="/opt/cardano/cnode/files/$NETWORK-topology.json" \
