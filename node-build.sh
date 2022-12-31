@@ -63,8 +63,8 @@ EOF
 
 mkdir -pm777 /opt/cardano/$NODE_NAME/priv/$POOL_NAME
 
-cp opt/$NETWORK-topology.json.core /opt/cardano/$NODE_NAME/files/$NETWORK-topology.json
-cp opt/$NETWORK-config.json.core /opt/cardano/$NODE_NAME/files/$NETWORK-config.json
+cp cfg/$NETWORK-topology.json.core /opt/cardano/$NODE_NAME/files/$NETWORK-topology.json
+cp cfg/$NETWORK-config.json.core /opt/cardano/$NODE_NAME/files/$NETWORK-config.json
 
 fi
 
@@ -92,8 +92,8 @@ cardanocommunity/cardano-node
 EOF
 
 mkdir -pm777 /opt/cardano/$NODE_NAME/priv/$POOL_NAME
-cp opt/$NETWORK-topology.json.core /opt/cardano/$NODE_NAME/files/$NETWORK-topology.json
-cp opt/$NETWORK-config.json.core /opt/cardano/$NODE_NAME/files/$NETWORK-config.json
+cp cfg/$NETWORK-topology.json.core /opt/cardano/$NODE_NAME/files/$NETWORK-topology.json
+cp cfg/$NETWORK-config.json.core /opt/cardano/$NODE_NAME/files/$NETWORK-config.json
 
 fi
 
@@ -120,8 +120,9 @@ docker run -dit \
 cardanocommunity/cardano-node
 EOF
 
-cp opt/$NETWORK-topology.json.relay.p2p /opt/cardano/$NODE_NAME/files/$NETWORK-topology.json
-cp opt/$NETWORK-config.json.relay.p2p /opt/cardano/$NODE_NAME/files/$NETWORK-config.json
+cp cfg/$NETWORK-topology.json.relay.p2p /opt/cardano/$NODE_NAME/files/$NETWORK-topology.json
+cp cfg/$NETWORK-config.json.relay.p2p /opt/cardano/$NODE_NAME/files/$NETWORK-config.json
+
 fi
 
 if [ $NETWORK == "mainnet" ] && [ "$NODE_TYPE" != "core" ]; then
@@ -147,8 +148,8 @@ docker run -dit \
 cardanocommunity/cardano-node
 EOF
 
-cp opt/$NETWORK-topology.json.relay.p2p /opt/cardano/$NODE_NAME/files/$NETWORK-topology.json
-cp opt/$NETWORK-config.json.relay.p2p /opt/cardano/$NODE_NAME/files/$NETWORK-config.json
+cp cfg/$NETWORK-topology.json.relay.p2p /opt/cardano/$NODE_NAME/files/$NETWORK-topology.json
+cp cfg/$NETWORK-config.json.relay.p2p /opt/cardano/$NODE_NAME/files/$NETWORK-config.json
 
 fi
 
