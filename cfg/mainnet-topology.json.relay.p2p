@@ -7,11 +7,15 @@
             {
               "address": "adaboy-gv9e3q.gleeze.com",
               "port": 16308
+            },
+	    {
+              "address": "adaboy-u29ccs.ddnsgeek.com",
+              "port": 16308
             }
           ],
           "advertise": false
         },
-        "valency": 1
+        "valency": 2
       }
     ]
   },

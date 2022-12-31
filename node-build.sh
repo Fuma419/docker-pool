@@ -31,8 +31,8 @@ chmod +x prereqs.sh
 ./prereqs.sh -f -s -n $NETWORK
 ./prereqs.sh -f -s -t $NODE_NAME -n $NETWORK
 
-cp /opt/cardano/cnode/files/topology.json /opt/cardano/$NODE_NAME/files/$NETWORK-topology.json
-cp /opt/cardano/cnode/files/config.json /opt/cardano/$NODE_NAME/files/$NETWORK-config.json
+#cp /opt/cardano/cnode/files/topology.json /opt/cardano/$NODE_NAME/files/$NETWORK-topology.json
+#cp /opt/cardano/cnode/files/config.json /opt/cardano/$NODE_NAME/files/$NETWORK-config.json
 
 mkdir -pm777 nodes
 sudo docker stop $NODE_NAME
@@ -46,7 +46,7 @@ cat > nodes/$NODE_NAME << EOF
 docker run -dit \
 --name $NODE_NAME \
 --memory=7g \
---cpus=2 \
+--cpus=3 \
 -e NETWORK=preprod \
 -e TOPOLOGY="/opt/cardano/cnode/files/$NETWORK-topology.json" \
 -e CONFIG="/opt/cardano/cnode/files/$NETWORK-config.json" \
@@ -62,6 +62,9 @@ cardanocommunity/cardano-node
 EOF
 
 mkdir -pm777 /opt/cardano/$NODE_NAME/priv/$POOL_NAME
+
+cp opt/$NETWORK-topology.json.core /opt/cardano/$NODE_NAME/files/$NETWORK-topology.json
+cp opt/$NETWORK-config.json.core /opt/cardano/$NODE_NAME/files/$NETWORK-config.json
 
 fi
 
@@ -89,6 +92,8 @@ cardanocommunity/cardano-node
 EOF
 
 mkdir -pm777 /opt/cardano/$NODE_NAME/priv/$POOL_NAME
+cp opt/$NETWORK-topology.json.core /opt/cardano/$NODE_NAME/files/$NETWORK-topology.json
+cp opt/$NETWORK-config.json.core /opt/cardano/$NODE_NAME/files/$NETWORK-config.json
 
 fi
 
@@ -108,13 +113,15 @@ docker run -dit \
 -e CPU_CORES=2 \
 -p 3000:6000 \
 -p 12799:12798 \
--p 8091:8090 \
+#-p 8091:8090 \
 -v /opt/cardano/$NODE_NAME/db:/opt/cardano/cnode/db \
 -v /opt/cardano/$NODE_NAME/files:/opt/cardano/cnode/files \
 -v /opt/cardano/$NODE_NAME/scripts/cnode.sh:/opt/cardano/cnode/scripts/cnode.sh \
 cardanocommunity/cardano-node
 EOF
 
+cp opt/$NETWORK-topology.json.relay.p2p /opt/cardano/$NODE_NAME/files/$NETWORK-topology.json
+cp opt/$NETWORK-config.json.relay.p2p /opt/cardano/$NODE_NAME/files/$NETWORK-config.json
 fi
 
 if [ $NETWORK == "mainnet" ] && [ "$NODE_TYPE" != "core" ]; then
@@ -124,13 +131,13 @@ printf "${green}[Info] Creating mainnet relay node${clear}\n"
 cat > nodes/$NODE_NAME << EOF
 docker run -dit \
 --name $NODE_NAME \
---security-opt=no-new-privileges \
---memory=25g \
---cpus=4 \
+--memory=30g \
+--cpus=5 \
 -e NETWORK=mainnet \
 -e TOPOLOGY="/opt/cardano/cnode/files/$NETWORK-topology.json" \
 -e CONFIG="/opt/cardano/cnode/files/$NETWORK-config.json" \
 -e CPU_CORES=4 \
+-e HOSTADDR=0.0.0.0 \
 -p 6000:6000 \
 -p 12798:12798 \
 -p 8090:8090 \
@@ -139,6 +146,9 @@ docker run -dit \
 -v /opt/cardano/$NODE_NAME/scripts/cnode.sh:/opt/cardano/cnode/scripts/cnode.sh \
 cardanocommunity/cardano-node
 EOF
+
+cp opt/$NETWORK-topology.json.relay.p2p /opt/cardano/$NODE_NAME/files/$NETWORK-topology.json
+cp opt/$NETWORK-config.json.relay.p2p /opt/cardano/$NODE_NAME/files/$NETWORK-config.json
 
 fi
 
