@@ -1,0 +1,14 @@
+{
+  "Producers": [
+    {
+      "addr": "adaboy-u29ccs.ddnsgeek.com",
+      "port": 6000,
+      "valency": 1
+    },
+    {
+      "addr": "adaboy-n28e0q.kozow.com",
+      "port": 6000,
+      "valency": 1
+    }
+  ]
+}
