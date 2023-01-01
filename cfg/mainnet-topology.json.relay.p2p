@@ -6,11 +6,13 @@
           "accessPoints": [
             {
               "address": "adaboy-gv9e3q.gleeze.com",
-              "port": 16308
+              "port": 16308,
+              "valency": 1
             },
 	          {
               "address": "adaboy-u29ccs.ddnsgeek.com",
-              "port": 16308
+              "port": 16308,
+              "valency": 1
             }
           ],
           "advertise": false
