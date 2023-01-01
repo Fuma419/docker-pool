@@ -1,6 +1,4 @@
 {
-  "TestEnableDevelopmentHardForkEras": true,
-  "TestEnableDevelopmentNetworkProtocols": true,
   "AlonzoGenesisFile": "/opt/cardano/cnode/files/alonzo-genesis.json",
   "ApplicationName": "cardano-sl",
   "ApplicationVersion": 1,
@@ -46,7 +44,7 @@
   "TraceLocalRootPeers": true,
   "TraceLocalTxSubmissionProtocol": false,
   "TraceLocalTxSubmissionServer": false,
-  "TraceMempool": true,
+  "TraceMempool": false,
   "TraceMux": false,
   "TracePeerSelection": true,
   "TracePeerSelectionActions": true,
