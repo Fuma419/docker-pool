@@ -20,7 +20,6 @@
   "TargetNumberOfRootPeers": 100,
   "EnableLogMetrics": false,
   "TraceBlockFetchClient": true,
-  "TestEnableDevelopmentNetworkProtocols": true,
   "TraceBlockFetchDecisions": true,
   "TraceBlockFetchProtocol": false,
   "TraceBlockFetchProtocolSerialised": true,
@@ -68,7 +67,10 @@
       "/opt/cardano/cnode/logs/node0.json"
     ]
   ],
-  "hasEKG": 12788,
+  "hasEKG": [
+    "0.0.0.0",
+    12788
+  ],
   "hasPrometheus": [
     "0.0.0.0",
     12798
