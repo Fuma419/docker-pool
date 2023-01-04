@@ -44,7 +44,7 @@
   "TraceLocalRootPeers": true,
   "TraceLocalTxSubmissionProtocol": false,
   "TraceLocalTxSubmissionServer": false,
-  "TraceMempool": false,
+  "TraceMempool": true,
   "TraceMux": false,
   "TracePeerSelection": true,
   "TracePeerSelectionActions": true,
@@ -68,7 +68,7 @@
   "hasEKG": [
     "0.0.0.0",
     12788
-  ],
+],
   "hasPrometheus": [
     "0.0.0.0",
     12798

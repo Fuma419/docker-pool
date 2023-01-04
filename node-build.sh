@@ -97,7 +97,7 @@ cp cfg/$NETWORK-config.json.core /opt/cardano/$NODE_NAME/files/$NETWORK-config.j
 
 fi
 
-if [ $NETWORK == "preprod" ] && [ "$NODE_TYPE" != "core" ]; then
+if [ $NETWORK == "preprod" ] && [ "$NODE_TYPE" == "relay" ]; then
 
 printf "${green}[Info] Creating preprod relay node${clear}\n"
 
@@ -124,7 +124,7 @@ cp cfg/$NETWORK-config.json.relay.p2p /opt/cardano/$NODE_NAME/files/$NETWORK-con
 
 fi
 
-if [ $NETWORK == "mainnet" ] && [ "$NODE_TYPE" != "core" ]; then
+if [ $NETWORK == "mainnet" ] && [ "$NODE_TYPE" == "relay" ]; then
 
 printf "${green}[Info] Creating mainnet relay node${clear}\n"
 
@@ -144,6 +144,31 @@ docker run -dit \
 -v /opt/cardano/$NODE_NAME/db:/opt/cardano/cnode/db \
 -v /opt/cardano/$NODE_NAME/files:/opt/cardano/cnode/files \
 -v /opt/cardano/$NODE_NAME/scripts/cnode.sh:/opt/cardano/cnode/scripts/cnode.sh \
+cardanocommunity/cardano-node
+EOF
+
+cp cfg/$NETWORK-topology.json.relay.p2p /opt/cardano/$NODE_NAME/files/$NETWORK-topology.json
+cp cfg/$NETWORK-config.json.relay.p2p /opt/cardano/$NODE_NAME/files/$NETWORK-config.json
+
+fi
+
+if [ $NETWORK == "mainnet" ] && [ "$NODE_TYPE" == "dev" ]; then
+
+printf "${green}[Info] Creating mainnet relay node${clear}\n"
+
+cat > nodes/$NODE_NAME << EOF
+docker run -dit \
+--name $NODE_NAME \
+--memory=25g \
+--cpus=2 \
+-e NETWORK=mainnet \
+-e TOPOLOGY="/opt/cardano/cnode/files/$NETWORK-topology.json" \
+-e CONFIG="/opt/cardano/cnode/files/$NETWORK-config.json" \
+-e CPU_CORES=2 \
+-p 7000:6000 \
+-p 12796:12798 \
+-v /opt/cardano/$NODE_NAME/db:/opt/cardano/cnode/db \
+-v /opt/cardano/$NODE_NAME/files:/opt/cardano/cnode/files \
 cardanocommunity/cardano-node
 EOF
 
