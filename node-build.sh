@@ -101,6 +101,8 @@ if [ $NETWORK == "preprod" ] && [ "$NODE_TYPE" == "relay" ]; then
 
 printf "${green}[Info] Creating preprod relay node${clear}\n"
 
+cp cfg/entrypoint.sh.$NETWORK.submit /opt/cardano/$NODE_NAME/files/entrypoint.sh
+
 cat > nodes/$NODE_NAME << EOF
 docker run -dit \
 --name $NODE_NAME \
@@ -116,7 +118,7 @@ docker run -dit \
 -p 8091:8090 \
 -v /opt/cardano/$NODE_NAME/db:/opt/cardano/cnode/db \
 -v /opt/cardano/$NODE_NAME/files:/opt/cardano/cnode/files \
--v cfg/entrypoint.sh.$NETWORK.submit:/entrypoint.sh \
+-v /opt/cardano/$NODE_NAME/files/entrypoint.sh:/entrypoint.sh \
 cardanocommunity/cardano-node
 EOF
 
@@ -128,6 +130,8 @@ fi
 if [ $NETWORK == "mainnet" ] && [ "$NODE_TYPE" == "relay" ]; then
 
 printf "${green}[Info] Creating mainnet relay node${clear}\n"
+
+cp cfg/entrypoint.sh.$NETWORK.submit /opt/cardano/$NODE_NAME/files/entrypoint.sh
 
 cat > nodes/$NODE_NAME << EOF
 docker run -dit \
@@ -144,7 +148,7 @@ docker run -dit \
 -p 8090:8090 \
 -v /opt/cardano/$NODE_NAME/db:/opt/cardano/cnode/db \
 -v /opt/cardano/$NODE_NAME/files:/opt/cardano/cnode/files \
--v cfg/entrypoint.sh.$NETWORK.submit:/entrypoint.sh \
+-v /opt/cardano/$NODE_NAME/files/entrypoint.sh:/entrypoint.sh \
 cardanocommunity/cardano-node
 EOF
 
