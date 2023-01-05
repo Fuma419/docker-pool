@@ -143,7 +143,7 @@ docker run -dit \
 -p 8090:8090 \
 -v /opt/cardano/$NODE_NAME/db:/opt/cardano/cnode/db \
 -v /opt/cardano/$NODE_NAME/files:/opt/cardano/cnode/files \
--v /opt/cardano/$NODE_NAME/scripts/cnode.sh:/opt/cardano/cnode/scripts/cnode.sh \
+-v /opt/cardano/$NODE_NAME/scripts/submitapi.sh:/opt/cardano/cnode/scripts/submitapi.sh \
 cardanocommunity/cardano-node
 EOF
 
@@ -179,4 +179,4 @@ fi
 
 
 sudo chmod +x nodes/$NODE_NAME
-#sudo ./nodes/$NODE_NAME
+sudo ./nodes/$NODE_NAME
