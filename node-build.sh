@@ -116,7 +116,7 @@ docker run -dit \
 -p 8091:8090 \
 -v /opt/cardano/$NODE_NAME/db:/opt/cardano/cnode/db \
 -v /opt/cardano/$NODE_NAME/files:/opt/cardano/cnode/files \
--v cfg/entrypoint.sh.submit.8091 /entrypoint.sh \
+-v cfg/entrypoint.sh.$NETWORK.submit:/entrypoint.sh \
 cardanocommunity/cardano-node
 EOF
 
@@ -144,7 +144,7 @@ docker run -dit \
 -p 8090:8090 \
 -v /opt/cardano/$NODE_NAME/db:/opt/cardano/cnode/db \
 -v /opt/cardano/$NODE_NAME/files:/opt/cardano/cnode/files \
--v cfg/entrypoint.sh.submit.8090 /entrypoint.sh \
+-v cfg/entrypoint.sh.$NETWORK.submit:/entrypoint.sh \
 cardanocommunity/cardano-node
 EOF
 
