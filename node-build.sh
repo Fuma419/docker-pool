@@ -116,10 +116,10 @@ docker run -dit \
 -p 8091:8090 \
 -v /opt/cardano/$NODE_NAME/db:/opt/cardano/cnode/db \
 -v /opt/cardano/$NODE_NAME/files:/opt/cardano/cnode/files \
+-v cfg/entrypoint.sh.submit.8091 /entrypoint.sh \
 cardanocommunity/cardano-node
 EOF
 
-cp cfg/entrypoint.sh.submit.8091 /entrypoint.sh
 cp cfg/$NETWORK-topology.json.relay.p2p /opt/cardano/$NODE_NAME/files/$NETWORK-topology.json
 cp cfg/$NETWORK-config.json.relay.p2p /opt/cardano/$NODE_NAME/files/$NETWORK-config.json
 
@@ -144,10 +144,10 @@ docker run -dit \
 -p 8090:8090 \
 -v /opt/cardano/$NODE_NAME/db:/opt/cardano/cnode/db \
 -v /opt/cardano/$NODE_NAME/files:/opt/cardano/cnode/files \
+-v cfg/entrypoint.sh.submit.8090 /entrypoint.sh \
 cardanocommunity/cardano-node
 EOF
 
-cp cfg/entrypoint.sh.submit.8090 /entrypoint.sh
 cp cfg/$NETWORK-topology.json.relay.p2p /opt/cardano/$NODE_NAME/files/$NETWORK-topology.json
 cp cfg/$NETWORK-config.json.relay.p2p /opt/cardano/$NODE_NAME/files/$NETWORK-config.json
 
