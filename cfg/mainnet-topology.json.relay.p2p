@@ -6,23 +6,16 @@
           "accessPoints": [
             {
               "address": "adaboy-gv9e3q.gleeze.com",
-              "port": 16308,
-              "valency": 1
-            },
-            {
-              "addr": "adaboy-n28e0q.kozow.com",
-              "port": 6000,
-              "valency": 1
+              "port": 16308
             },
 	          {
               "address": "adaboy-u29ccs.ddnsgeek.com",
-              "port": 16308,
-              "valency": 1
+              "port": 16308
             }
           ],
           "advertise": false
         },
-        "valency": 3
+        "valency": 2
       }
     ]
   },
