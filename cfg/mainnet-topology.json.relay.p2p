@@ -9,6 +9,11 @@
               "port": 16308,
               "valency": 1
             },
+            {
+              "addr": "adaboy-n28e0q.kozow.com",
+              "port": 6000,
+              "valency": 1
+            },
 	          {
               "address": "adaboy-u29ccs.ddnsgeek.com",
               "port": 16308,
@@ -17,7 +22,7 @@
           ],
           "advertise": false
         },
-        "valency": 2
+        "valency": 3
       }
     ]
   },
