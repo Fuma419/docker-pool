@@ -57,7 +57,6 @@ docker run -dit \
 -v /opt/cardano/$NODE_NAME/db:/opt/cardano/cnode/db \
 -v /opt/cardano/$NODE_NAME/files:/opt/cardano/cnode/files \
 -v /opt/cardano/$NODE_NAME/priv:/opt/cardano/cnode/priv \
--v /opt/cardano/$NODE_NAME/scripts/cnode.sh:/opt/cardano/cnode/scripts/cnode.sh \
 cardanocommunity/cardano-node
 EOF
 
@@ -71,6 +70,8 @@ fi
 if [ "$NETWORK" == "mainnet" ] && [ "$NODE_TYPE" == "core" ]; then
 
 printf "${green}[Info] Creating a mainnet core node${clear}\n"
+
+cp cfg/entrypoint.sh.$NETWORK.sendtip /opt/cardano/$NODE_NAME/files/entrypoint.sh
 
 cat > nodes/$NODE_NAME << EOF
 docker run -dit \
@@ -87,7 +88,6 @@ docker run -dit \
 -v /opt/cardano/$NODE_NAME/db:/opt/cardano/cnode/db \
 -v /opt/cardano/$NODE_NAME/files:/opt/cardano/cnode/files \
 -v /opt/cardano/$NODE_NAME/priv:/opt/cardano/cnode/priv \
--v /opt/cardano/$NODE_NAME/scripts/cnode.sh:/opt/cardano/cnode/scripts/cnode.sh \
 cardanocommunity/cardano-node
 EOF
 
