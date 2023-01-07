@@ -78,6 +78,7 @@ docker run -dit \
 --name $NODE_NAME \
 --memory=30g \
 --cpus=5 \
+--entrypoint=/opt/cardano/cnode/files/entrypoint.sh \
 -e NETWORK=mainnet \
 -e TOPOLOGY="/opt/cardano/cnode/files/$NETWORK-topology.json" \
 -e CONFIG="/opt/cardano/cnode/files/$NETWORK-config.json" \
