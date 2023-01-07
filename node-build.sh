@@ -91,7 +91,7 @@ docker run -dit \
 cardanocommunity/cardano-node
 EOF
 
-mkdir -pm777 /opt/cardano/$NODE_NAME/priv/$POOL_NAME
+mkdir -pm777 /opt/cardano/$NODE_NAME/priv/pool/$POOL_NAME
 cp cfg/$NETWORK-topology.json.core /opt/cardano/$NODE_NAME/files/$NETWORK-topology.json
 cp cfg/$NETWORK-config.json.core /opt/cardano/$NODE_NAME/files/$NETWORK-config.json
 
