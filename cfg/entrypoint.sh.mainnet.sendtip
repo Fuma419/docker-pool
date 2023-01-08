@@ -45,7 +45,8 @@ export UPDATE_CHECK='N'
 if [[ "$NETWORK" == "mainnet" ]]; then
   $CNODE_HOME/scripts/prereqs.sh -n mainnet -t cnode -s -f > /dev/null 2>&1 \
   && customise \
-  && exec $CNODE_HOME/scripts/cnode.sh
+  && $CNODE_HOME/scripts/cncli.sh ptsendtip > /dev/null 2>&1 \
+  & exec $CNODE_HOME/scripts/cnode.sh
 elif [[ "$NETWORK" == "testnet" ]]; then
   $CNODE_HOME/scripts/prereqs.sh -n testnet -t cnode -s -f > /dev/null 2>&1 \
   && customise \
